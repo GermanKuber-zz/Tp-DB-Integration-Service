@@ -1,0 +1,1150 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 7:17:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-L51S99M"
+  DTS:CreatorName="DESKTOP-L51S99M\Desktop-Ger-Dev"
+  DTS:DTSID="{D8CF939E-FE9F-4D92-BEAE-2EE757CFCAB4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="CargaAfiliado"
+  DTS:PackageType="5"
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{7FF4A409-0467-4FB5-9AA0-98531573868B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{726938BE-B140-499A-B3E6-5C2716B0263D}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Desktop-Ger-Dev\Desktop\Pacientes.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A4F9B293-706F-44B3-90C5-A2D1094CD240}"
+      DTS:ObjectName="LocalHost.Pacientes">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes1]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{8D4140B1-9BC8-4D0B-A6EC-D2E27C7DEB96}"
+      DTS:ObjectName="LocalHost.Pacientes1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Integrated Security=True;Application Name=SSIS-CargaFarmacia-{8D4140B1-9BC8-4D0B-A6EC-D2E27C7DEB96}LocalHost.Pacientes1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Borrar Temp_Dim_Afiliado"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{223C62D5-B3FF-4D80-9797-A536CA9A2923}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar Temp_Dim_Afiliado"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A4F9B293-706F-44B3-90C5-A2D1094CD240}"
+          SQLTask:SqlStatementSource="truncate table [dbo].[Temp_Dim_Afiliado]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga Temp_Afiliado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F4F83709-04BF-46A7-9D81-26C70D9F7A3E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Temp_Afiliado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Temp_Afiliado\ADO NET Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="ADO NET Source"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."CYGNUSA_AFILIADO"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Temp_Afiliado\ADO NET Source.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Pacientes1]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Pacientes1]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO]"
+                      name="AFIL_NRO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DNI]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_DNI]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DNI]"
+                      name="AFIL_DNI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NOMBRE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NOMBRE]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NOMBRE]"
+                      name="AFIL_NOMBRE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_OBRA]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_OBRA]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_OBRA]"
+                      name="AFIL_NRO_OBRA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DOMICILIO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_DOMICILIO]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DOMICILIO]"
+                      name="AFIL_DOMICILIO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_LOCALIDAD]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_LOCALIDAD]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_LOCALIDAD]"
+                      name="AFIL_LOCALIDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PCIA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PCIA]"
+                      length="30"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PCIA]"
+                      name="AFIL_PCIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_TEL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_TEL]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_TEL]"
+                      name="AFIL_TEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FECHA_ING]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FECHA_ING]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FECHA_ING]"
+                      name="AFIL_FECHA_ING"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EDAD]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EDAD]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EDAD]"
+                      name="AFIL_EDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EMAIL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EMAIL]"
+                      length="40"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EMAIL]"
+                      name="AFIL_EMAIL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_FCIA]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_FCIA]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_FCIA]"
+                      name="AFIL_NRO_FCIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FRECUENCIA]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FRECUENCIA]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FRECUENCIA]"
+                      name="AFIL_FRECUENCIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_CURSOS]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_CURSOS]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_CURSOS]"
+                      name="AFIL_CURSOS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_ACTIV]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_ACTIV]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_ACTIV]"
+                      name="AFIL_ACTIV"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FECHA_BAJA]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FECHA_BAJA]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FECHA_BAJA]"
+                      name="AFIL_FECHA_BAJA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_MEDICO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_MEDICO]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_MEDICO]"
+                      name="AFIL_NRO_MEDICO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_DIA]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_DIA]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_DIA]"
+                      name="AFIL_PAT_DIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_HIP]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_HIP]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_HIP]"
+                      name="AFIL_PAT_HIP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_HIV]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_HIV]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_HIV]"
+                      name="AFIL_PAT_HIV"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_ONC]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_ONC]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PAT_ONC]"
+                      name="AFIL_PAT_ONC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_ASIG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_ASIG]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO_ASIG]"
+                      name="AFIL_NRO_ASIG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_USER]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_USER]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_USER]"
+                      name="AFIL_USER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_OBSER_DISP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_OBSER_DISP]"
+                      length="255"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_OBSER_DISP]"
+                      name="AFIL_OBSER_DISP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_OBSER_FICHA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_OBSER_FICHA]"
+                      length="255"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_OBSER_FICHA]"
+                      name="AFIL_OBSER_FICHA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EXTERNO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EXTERNO]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EXTERNO]"
+                      name="AFIL_EXTERNO"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO]"
+                      dataType="i4"
+                      name="AFIL_NRO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_DNI]"
+                      dataType="i4"
+                      name="AFIL_DNI" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NOMBRE]"
+                      dataType="wstr"
+                      length="50"
+                      name="AFIL_NOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_OBRA]"
+                      dataType="i4"
+                      name="AFIL_NRO_OBRA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_DOMICILIO]"
+                      dataType="wstr"
+                      length="50"
+                      name="AFIL_DOMICILIO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_LOCALIDAD]"
+                      dataType="i4"
+                      name="AFIL_LOCALIDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PCIA]"
+                      dataType="wstr"
+                      length="30"
+                      name="AFIL_PCIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_TEL]"
+                      dataType="wstr"
+                      length="50"
+                      name="AFIL_TEL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FECHA_ING]"
+                      dataType="dbTimeStamp"
+                      name="AFIL_FECHA_ING" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EDAD]"
+                      dataType="i4"
+                      name="AFIL_EDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EMAIL]"
+                      dataType="wstr"
+                      length="40"
+                      name="AFIL_EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_FCIA]"
+                      dataType="i4"
+                      name="AFIL_NRO_FCIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FRECUENCIA]"
+                      dataType="i4"
+                      name="AFIL_FRECUENCIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_CURSOS]"
+                      dataType="i2"
+                      name="AFIL_CURSOS" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_ACTIV]"
+                      dataType="i2"
+                      name="AFIL_ACTIV" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_FECHA_BAJA]"
+                      dataType="dbTimeStamp"
+                      name="AFIL_FECHA_BAJA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_MEDICO]"
+                      dataType="i4"
+                      name="AFIL_NRO_MEDICO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_DIA]"
+                      dataType="i2"
+                      name="AFIL_PAT_DIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_HIP]"
+                      dataType="i2"
+                      name="AFIL_PAT_HIP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_HIV]"
+                      dataType="i2"
+                      name="AFIL_PAT_HIV" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_PAT_ONC]"
+                      dataType="i2"
+                      name="AFIL_PAT_ONC" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_NRO_ASIG]"
+                      dataType="wstr"
+                      length="50"
+                      name="AFIL_NRO_ASIG" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_USER]"
+                      dataType="i4"
+                      name="AFIL_USER" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_OBSER_DISP]"
+                      dataType="wstr"
+                      length="255"
+                      name="AFIL_OBSER_DISP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_OBSER_FICHA]"
+                      dataType="wstr"
+                      length="255"
+                      name="AFIL_OBSER_FICHA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[AFIL_EXTERNO]"
+                      dataType="i4"
+                      name="AFIL_EXTERNO" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO]"
+                      name="AFIL_NRO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_DNI]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_DNI]"
+                      name="AFIL_DNI" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NOMBRE]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NOMBRE]"
+                      name="AFIL_NOMBRE" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_OBRA]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_OBRA]"
+                      name="AFIL_NRO_OBRA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_DOMICILIO]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_DOMICILIO]"
+                      name="AFIL_DOMICILIO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_LOCALIDAD]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_LOCALIDAD]"
+                      name="AFIL_LOCALIDAD" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PCIA]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PCIA]"
+                      name="AFIL_PCIA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_TEL]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_TEL]"
+                      name="AFIL_TEL" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FECHA_ING]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FECHA_ING]"
+                      name="AFIL_FECHA_ING" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EDAD]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EDAD]"
+                      name="AFIL_EDAD" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EMAIL]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EMAIL]"
+                      name="AFIL_EMAIL" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_FCIA]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_FCIA]"
+                      name="AFIL_NRO_FCIA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FRECUENCIA]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FRECUENCIA]"
+                      name="AFIL_FRECUENCIA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_CURSOS]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_CURSOS]"
+                      name="AFIL_CURSOS" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_ACTIV]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_ACTIV]"
+                      name="AFIL_ACTIV" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FECHA_BAJA]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_FECHA_BAJA]"
+                      name="AFIL_FECHA_BAJA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_MEDICO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_MEDICO]"
+                      name="AFIL_NRO_MEDICO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_DIA]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_DIA]"
+                      name="AFIL_PAT_DIA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_HIP]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_HIP]"
+                      name="AFIL_PAT_HIP" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_HIV]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_HIV]"
+                      name="AFIL_PAT_HIV" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_ONC]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_PAT_ONC]"
+                      name="AFIL_PAT_ONC" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_ASIG]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_NRO_ASIG]"
+                      name="AFIL_NRO_ASIG" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_USER]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_USER]"
+                      name="AFIL_USER" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_OBSER_DISP]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_OBSER_DISP]"
+                      name="AFIL_OBSER_DISP" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_OBSER_FICHA]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_OBSER_FICHA]"
+                      name="AFIL_OBSER_FICHA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EXTERNO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[AFIL_EXTERNO]"
+                      name="AFIL_EXTERNO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga Temp_Dim_Afiliado"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Temp_Dim_Afiliado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Pacientes]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Pacientes]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_NRO]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_NRO"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Nro_Afiliado]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NRO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_DNI]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_DNI"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Dni]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DNI]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_NOMBRE]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="AFIL_NOMBRE"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_NOMBRE]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_DOMICILIO]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="AFIL_DOMICILIO"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Domicilio]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_DOMICILIO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_TEL]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="AFIL_TEL"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_TEL]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_FECHA_ING]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="AFIL_FECHA_ING"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ing]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_FECHA_ING]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_EDAD]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_EDAD"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EDAD]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_EMAIL]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="AFIL_EMAIL"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EMAIL]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_USER]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_USER"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[User]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_USER]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_EXTERNO]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_EXTERNO"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Externo]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_EXTERNO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_LOCALIDAD]"
+                      cachedDataType="i4"
+                      cachedName="AFIL_LOCALIDAD"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[CP]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_LOCALIDAD]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].Columns[AFIL_PCIA]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="AFIL_PCIA"
+                      externalMetadataColumnId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Provincia]"
+                      lineageId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output].Columns[AFIL_PCIA]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Nro_Afiliado]"
+                      dataType="i4"
+                      name="Nro_Afiliado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Dni]"
+                      dataType="i4"
+                      name="Dni" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Apellido]"
+                      dataType="wstr"
+                      length="50"
+                      name="Apellido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Domicilio]"
+                      dataType="wstr"
+                      length="50"
+                      name="Domicilio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      dataType="wstr"
+                      length="50"
+                      name="Telefono" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ing]"
+                      dataType="dbDate"
+                      name="Fecha_Ing" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      dataType="i4"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="50"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[User]"
+                      dataType="wstr"
+                      length="50"
+                      name="User" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Externo]"
+                      dataType="i4"
+                      name="Externo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[CP]"
+                      dataType="i4"
+                      name="CP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Localidad]"
+                      dataType="wstr"
+                      length="50"
+                      name="Localidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input].ExternalColumns[Provincia]"
+                      dataType="wstr"
+                      length="50"
+                      name="Provincia" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Temp_Afiliado.Paths[ADO NET Source Output]"
+              endId="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado.Inputs[OLE DB Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\Carga Temp_Afiliado\ADO NET Source.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Default Value"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3A7EFDF0-3CF8-4A46-BEBE-B6EB8E44D1E8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Default Value"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A4F9B293-706F-44B3-90C5-A2D1094CD240}"
+          SQLTask:SqlStatementSource="IF NOT EXISTS (SELECT 1 FROM Dim_Afiliado WHERE nro_afiliado=99999999)&#xA;insert into Dim_Afiliado (nro_afiliado, nombre) values (99999999,'SIN AFILIADO')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim_filiado"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{52D5C57A-5893-4789-9A00-680463B916EF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim_filiado"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A4F9B293-706F-44B3-90C5-A2D1094CD240}"
+          SQLTask:SqlStatementSource="MERGE Dim_Afiliado as target&#xA;    USING temp_Dim_Afiliado source&#xA;ON (source.nro_afiliado = target.nro_afiliado)&#xA;WHEN MATCHED&#xA;    THEN UPDATE SET &#xA;&#x9;&#x9;target.dni = source.dni,&#xA;        target.nombre = source.nombre,&#xA;        target.domicilio = source.domicilio,&#xA;&#x9;&#x9;target.telefono= source.telefono,&#xA;&#x9;&#x9;target.fecha_ing= source.fecha_ing,&#xA;&#x9;&#x9;target.edad= source.edad,&#xA;&#x9;&#x9;target.email= source.email&#xA;&#xA;&#xA;WHEN NOT MATCHED BY TARGET &#xA;    THEN INSERT (nro_afiliado,dni, nombre, domicilio, telefono,fecha_ing,edad,email)&#xA;         VALUES (source.nro_afiliado,source.dni,source.nombre, source.domicilio, source.telefono,source.fecha_ing,source.edad, source.email)&#xA;WHEN NOT MATCHED BY SOURCE &#xA;    THEN DELETE;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{EF7CC1F9-CA53-4892-9854-E2D667C82EFD}"
+      DTS:From="Package\Carga Temp_Afiliado"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Dim_filiado" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E38AA1D5-12A9-421E-9E39-B0DDBCEDDDF8}"
+      DTS:From="Package\Borrar Temp_Dim_Afiliado"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Carga Temp_Afiliado" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{22503C7A-5D9C-46D1-8A77-CBEADF8BA3EC}"
+      DTS:From="Package\Dim_filiado"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Default Value" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Borrar Temp_Dim_Afiliado"
+          TopLeft="234,33" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Carga Temp_Afiliado"
+          TopLeft="246,150" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Dim_filiado"
+          TopLeft="263,254" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="331.5,192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="337,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Default Value"
+          TopLeft="315,359" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="328.5,296">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="57.5,63"
+              Start="0,0"
+              End="57.5,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5"
+                    Point2="0,31.5"
+                    Point3="4,31.5" />
+                  <mssgle:LineSegment
+                    End="53.5,31.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="53.5,31.5"
+                    Point2="57.5,31.5"
+                    Point3="57.5,35.5" />
+                  <mssgle:LineSegment
+                    End="57.5,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Temp_Afiliado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Carga Temp_Afiliado\ADO NET Source"
+          TopLeft="390,167" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado"
+          TopLeft="273,319" />
+        <EdgeLayout
+          Id="Package\Carga Temp_Afiliado.Paths[ADO NET Source Output]"
+          TopLeft="469,209">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-95.5,110"
+              Start="0,0"
+              End="-95.5,102.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,51"
+                    Point2="0,55"
+                    Point3="-4,55" />
+                  <mssgle:LineSegment
+                    End="-91.5,55" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-91.5,55"
+                    Point2="-95.5,55"
+                    Point3="-95.5,59" />
+                  <mssgle:LineSegment
+                    End="-95.5,102.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Temp_Afiliado\ADO NET Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Temp_Afiliado\Carga Temp_Dim_Afiliado">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

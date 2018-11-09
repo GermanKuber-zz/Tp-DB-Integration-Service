@@ -1,0 +1,196 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/5/2018 10:43:37 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="342-12-84573"
+  DTS:CreatorName="342-12-84573\navegador"
+  DTS:DTSID="{CCBEC908-B794-40DB-9356-3EDFEA18D941}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="Fact_Pedido"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{1D0DA409-5B87-4EE9-AA16-4B965AC61CFB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{414D2D64-9F7A-4BF1-9B1C-5DDC484E22D0}"
+      DTS:ObjectName="LocalHost.Pacientes">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DA3F7B54-9CDB-4F30-AD87-EAAB9BE840C8}"
+      DTS:ObjectName="LocalHost.Pacientes 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Actualiza Fact_Pedido"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{3922DC5F-A9D4-4B2C-BE3D-A8AEE632B9AD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Actualiza Fact_Pedido"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{414D2D64-9F7A-4BF1-9B1C-5DDC484E22D0}"
+          SQLTask:SqlStatementSource="MERGE Fact_Pedidos as target&#xA;    USING Temp_Fact_Pedidos source&#xA;ON (source.Nro_pedido = target.Nro_pedido AND&#xA;&#x9;source.Nro_Afiliado = target.Nro_Afiliado AND&#xA;&#x9;source.Id_Fecha = target.Id_Fecha AND&#xA;&#x9;source.Nro_Farmacia = target.Nro_Farmacia AND&#xA;&#x9;source.Nro_Medico = target.Nro_Medico AND&#xA;&#x9;source.Nro_Obra = target.Nro_Obra)&#xA;WHEN MATCHED&#xA;    THEN UPDATE SET &#xA;        target.Total_Pedido = source.Total_Pedido,&#xA;&#x9;&#x9;target.Total_Obra= source.Total_Obra,&#xA;&#x9;&#x9;target.Total_Trimestre= source.Total_Trimestre,&#xA;&#x9;&#x9;target.Total_Ubicacion= source.Total_Ubicacion&#xA;WHEN NOT MATCHED BY TARGET &#xA;    THEN INSERT (Nro_pedido,&#xA;&#x9;&#x9; &#x9;&#x9; Nro_Afiliado,&#xA;&#x9; &#x9;&#x9;&#x9; Id_Fecha,&#xA;&#x9; &#x9;&#x9;&#x9; Nro_Farmacia,&#xA;&#x9; &#x9;&#x9;&#x9; Nro_Medico,&#xA;&#x9; &#x9;&#x9;&#x9; Nro_Obra,&#xA;&#x9;&#x9;&#x9;&#x9; Total_Pedido,&#xA;&#x9;&#x9;&#x9;&#x9; Total_Obra,&#xA;&#x9;&#x9;&#x9;&#x9; Total_Trimestre,&#xA;&#x9;&#x9;&#x9;&#x9; Total_Ubicacion)&#xA;         VALUES (source.Nro_pedido,&#xA;&#x9;&#x9;&#x9;&#x9; source.Nro_Afiliado,&#xA;&#x9;&#x9;&#x9;&#x9; source.Id_Fecha,&#xA;&#x9;&#x9;&#x9;&#x9; source.Nro_Farmacia,&#xA;&#x9;&#x9;&#x9;&#x9; source.Nro_Medico,&#xA;&#x9;&#x9;&#x9;&#x9; source.Nro_Obra,&#xA;&#x9;&#x9;&#x9;&#x9; source.Total_Pedido,&#xA;&#x9;&#x9;&#x9;&#x9; source.Total_Obra,&#xA;&#x9;&#x9;&#x9;&#x9; source.Total_Trimestre,&#xA;&#x9;&#x9;&#x9;&#x9; source.Total_Ubicacion)&#xA;WHEN NOT MATCHED BY SOURCE &#xA;    THEN DELETE;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Borrar Temp_Fact_Pedido"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{20FB7DDB-2EFE-49FA-A3F9-3AA90EFD8323}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar Temp_Fact_Pedido"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DA3F7B54-9CDB-4F30-AD87-EAAB9BE840C8}"
+          SQLTask:SqlStatementSource="truncate table [dbo].[Temp_Fact_Pedidos]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{AD80C871-4D08-4487-90FB-10C584C61BF6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{414D2D64-9F7A-4BF1-9B1C-5DDC484E22D0}"
+          SQLTask:SqlStatementSource="&#xA;declare @afiliadoDefault int &#xA;select @afiliadoDefault = Nro_Afiliado from Dim_Afiliado WHERE nro_afiliado=99999999&#xA;&#xA;declare @tiempoDefault int &#xA;select @tiempoDefault = Id_Tiempo from Dim_Tiempo WHERE Fecha='01/01/1900'&#xA;&#xA;declare @farmaciadefault int &#xA;select @farmaciadefault = Nro_Farmacia from Dim_Farmacia WHERE nro_farmacia=99999999&#xA;&#xA;&#xA;--insert into Temp_Fact_Pedido&#xA;select &#xA;&#x9;pedido.PED_NRO nro_pedido,&#xA;&#x9;isnull(Nro_Afiliado,@afiliadoDefault) idafiliado,&#xA;&#x9;isnull(Id_Tiempo,@tiempoDefault) id_fecha,&#xA;&#x9;isnull(Nro_Farmacia,@farmaciadefault) idfarmacia,&#xA;&#x9;pedido.ped_total,&#xA;&#x9;pedido.PED_TOT_OBRA,&#xA;&#x9;pedido.ped_tot_afil,&#xA;&#x9;pedido.ped_justif_med,&#xA;&#x9;pedido.ped_trimestral,&#xA;&#x9;0&#xA;&#x9;from Pacientes.[dbo].[CYGNUSA_PEDIDO] as pedido&#xA;&#x9;left join dim_afiliado on &#xA;&#x9;&#x9;pedido.ped_nro_afil=dim_afiliado.nro_afiliado&#xA;&#x9;left join Dim_Tiempo on&#xA;&#x9;&#x9;pedido.PED_FECHA=Dim_Tiempo.Fecha&#xA;&#x9;left join Dim_Farmacia on&#xA;&#x9;&#x9;pedido.PED_NRO_FCIA=dim_farmacia.nro_farmacia&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{CECB29A2-7310-48B5-A340-1230BCD133FC}"
+      DTS:From="Package\Borrar Temp_Fact_Pedido"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Tarea Ejecutar SQL" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B86C4514-D5C2-4AC5-AF6D-70F58C41C334}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Actualiza Fact_Pedido" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Actualiza Fact_Pedido"
+          TopLeft="565,351" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Borrar Temp_Fact_Pedido"
+          TopLeft="481,58" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="497,233" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="581.75,100">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,133"
+              Start="0,0"
+              End="0,125.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,125.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="582,275">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="73.5,76"
+              Start="0,0"
+              End="73.5,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34"
+                    Point2="0,38"
+                    Point3="4,38" />
+                  <mssgle:LineSegment
+                    End="69.5,38" />
+                  <mssgle:CubicBezierSegment
+                    Point1="69.5,38"
+                    Point2="73.5,38"
+                    Point3="73.5,42" />
+                  <mssgle:LineSegment
+                    End="73.5,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

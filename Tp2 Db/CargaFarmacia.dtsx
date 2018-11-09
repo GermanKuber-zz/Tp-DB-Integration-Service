@@ -1,0 +1,858 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 7:17:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-L51S99M"
+  DTS:CreatorName="DESKTOP-L51S99M\Desktop-Ger-Dev"
+  DTS:DTSID="{6C87AEC7-85F8-42FA-9797-495C8A0F437F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="CargaFarmacia"
+  DTS:PackageType="5"
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{E1BE6D60-69F6-492D-864A-D41C747515C9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[342-12-84573\SQL_UAI.Pacientes]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AA888236-6745-4EE0-806D-FF5746CA6E26}"
+      DTS:ObjectName="342-12-84573\SQL_UAI.Pacientes">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=342-12-84573\SQL_UAI;Initial Catalog=Pacientes;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[342-12-84573\SQL_UAI.Pacientes1]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{4D291F02-7746-46ED-8B4C-F1D4D7915D68}"
+      DTS:ObjectName="342-12-84573\SQL_UAI.Pacientes1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=342-12-84573\SQL_UAI;Initial Catalog=Pacientes;Integrated Security=True;Application Name=SSIS-CargaAfiliado-{4D291F02-7746-46ED-8B4C-F1D4D7915D68}342-12-84573\SQL_UAI.Pacientes1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{F7F3AEAB-63E8-4CEC-8384-B75547739B73}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Desktop-Ger-Dev\Desktop\Pacientes.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3C1E6D5C-2B95-492D-955F-FC635E3E3054}"
+      DTS:ObjectName="LocalHost.Pacientes">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Pacientes1]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{F18E3950-527F-48B9-A0DF-222D7CCCA059}"
+      DTS:ObjectName="LocalHost.Pacientes1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Pacientes;Integrated Security=True;Application Name=SSIS-CargaFarmacia-{F18E3950-527F-48B9-A0DF-222D7CCCA059}LocalHost.Pacientes1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Borrar Temp_Dim_Farmacia"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{CF69CF6A-8753-43FB-ADE7-9320E3F10C16}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar Temp_Dim_Farmacia"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3C1E6D5C-2B95-492D-955F-FC635E3E3054}"
+          SQLTask:SqlStatementSource="truncate table [dbo].[Temp_Dim_Farmacia]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga Temp_Farmacia"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E282A999-DD38-4EDE-808F-97748E6C9FE9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Temp_Farmacia"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Temp_Farmacia\ADO NET Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="ADO NET Source"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."CYGNUSA_FARMACIA"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Temp_Farmacia\ADO NET Source.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Pacientes1]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Pacientes1]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NRO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_NRO]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NRO]"
+                      name="FCIA_NRO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NOMBRE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_NOMBRE]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NOMBRE]"
+                      name="FCIA_NOMBRE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_DOMICILIO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_DOMICILIO]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_DOMICILIO]"
+                      name="FCIA_DOMICILIO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_LOCALIDAD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_LOCALIDAD]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_LOCALIDAD]"
+                      name="FCIA_LOCALIDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_PCIA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_PCIA]"
+                      length="30"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_PCIA]"
+                      name="FCIA_PCIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_EMAIL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_EMAIL]"
+                      length="40"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_EMAIL]"
+                      name="FCIA_EMAIL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_TEL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_TEL]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_TEL]"
+                      name="FCIA_TEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_DT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_DT]"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_DT]"
+                      name="FCIA_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_CP]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_CP]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_CP]"
+                      name="FCIA_CP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_PROP]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_PROP]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_PROP]"
+                      name="FCIA_PROP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_GRUPO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_GRUPO]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_GRUPO]"
+                      name="FCIA_GRUPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_OBSERV]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_OBSERV]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_OBSERV]"
+                      name="FCIA_OBSERV"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_ESTADO]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_ESTADO]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_ESTADO]"
+                      name="FCIA_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_NRO]"
+                      dataType="i4"
+                      name="FCIA_NRO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_NOMBRE]"
+                      dataType="wstr"
+                      length="50"
+                      name="FCIA_NOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_DOMICILIO]"
+                      dataType="wstr"
+                      length="50"
+                      name="FCIA_DOMICILIO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_LOCALIDAD]"
+                      dataType="wstr"
+                      length="50"
+                      name="FCIA_LOCALIDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_PCIA]"
+                      dataType="wstr"
+                      length="30"
+                      name="FCIA_PCIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_EMAIL]"
+                      dataType="wstr"
+                      length="40"
+                      name="FCIA_EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_TEL]"
+                      dataType="wstr"
+                      length="50"
+                      name="FCIA_TEL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_DT]"
+                      dataType="wstr"
+                      length="50"
+                      name="FCIA_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_CP]"
+                      dataType="i4"
+                      name="FCIA_CP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_PROP]"
+                      dataType="i2"
+                      name="FCIA_PROP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_GRUPO]"
+                      dataType="i4"
+                      name="FCIA_GRUPO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_OBSERV]"
+                      dataType="nText"
+                      name="FCIA_OBSERV" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[FCIA_ESTADO]"
+                      dataType="i2"
+                      name="FCIA_ESTADO" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_NRO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_NRO]"
+                      name="FCIA_NRO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_NOMBRE]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_NOMBRE]"
+                      name="FCIA_NOMBRE" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_DOMICILIO]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_DOMICILIO]"
+                      name="FCIA_DOMICILIO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_LOCALIDAD]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_LOCALIDAD]"
+                      name="FCIA_LOCALIDAD" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_PCIA]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_PCIA]"
+                      name="FCIA_PCIA" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_EMAIL]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_EMAIL]"
+                      name="FCIA_EMAIL" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_TEL]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_TEL]"
+                      name="FCIA_TEL" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_DT]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_DT]"
+                      name="FCIA_DT" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_CP]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_CP]"
+                      name="FCIA_CP" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_PROP]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_PROP]"
+                      name="FCIA_PROP" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_GRUPO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_GRUPO]"
+                      name="FCIA_GRUPO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_OBSERV]"
+                      dataType="nText"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_OBSERV]"
+                      name="FCIA_OBSERV" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_ESTADO]"
+                      dataType="i2"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[FCIA_ESTADO]"
+                      name="FCIA_ESTADO" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Temp_Farmacia\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Temp_Dim_Farmacia]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Temp_Farmacia\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Pacientes]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Pacientes]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_NRO]"
+                      cachedDataType="i4"
+                      cachedName="FCIA_NRO"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nro_Farmacia]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NRO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_NOMBRE]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FCIA_NOMBRE"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_NOMBRE]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_EMAIL]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="FCIA_EMAIL"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_EMAIL]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_TEL]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FCIA_TEL"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_TEL]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_GRUPO]"
+                      cachedDataType="i4"
+                      cachedName="FCIA_GRUPO"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Grupo]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_GRUPO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_ESTADO]"
+                      cachedDataType="i2"
+                      cachedName="FCIA_ESTADO"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Estado]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_ESTADO]" />
+                    <inputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FCIA_PCIA]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="FCIA_PCIA"
+                      externalMetadataColumnId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Provincia]"
+                      lineageId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output].Columns[FCIA_PCIA]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nro_Farmacia]"
+                      dataType="i4"
+                      name="Nro_Farmacia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="50"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      dataType="wstr"
+                      length="50"
+                      name="Telefono" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Grupo]"
+                      dataType="i4"
+                      name="Grupo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Estado]"
+                      dataType="i4"
+                      name="Estado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Provincia]"
+                      dataType="wstr"
+                      length="50"
+                      name="Provincia" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Temp_Farmacia\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Temp_Farmacia\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Temp_Farmacia\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Temp_Farmacia.Paths[ADO NET Source Output]"
+              endId="Package\Carga Temp_Farmacia\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\Carga Temp_Farmacia\ADO NET Source.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Default Value"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A88FFD53-7D7E-48A2-9474-84DFB656C644}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Default Value"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3C1E6D5C-2B95-492D-955F-FC635E3E3054}"
+          SQLTask:SqlStatementSource="IF NOT EXISTS (SELECT 1 FROM Dim_Farmacia WHERE NRO_FARMACIA=99999999)&#xA;&#x9;INSERT INTO Dim_Farmacia (nro_farmacia,nombre) values (99999999, 'SIN FARMACIA')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F21312AA-8B58-4AC8-AF3E-0C272EB5E76C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3C1E6D5C-2B95-492D-955F-FC635E3E3054}"
+          SQLTask:SqlStatementSource="MERGE Dim_Farmacia as target&#xA;    USING Temp_Dim_Farmacia source&#xA;ON (source.nro_farmacia = target.nro_farmacia)&#xA;WHEN MATCHED&#xA;    THEN UPDATE SET &#xA;        target.Nombre = source.Nombre,&#xA;&#x9;&#x9;target.Email= source.Email,&#xA;&#x9;&#x9;target.Telefono= source.Telefono,&#xA;&#x9;&#x9;target.Grupo = source.Grupo,&#xA;&#x9;&#x9;target.Estado = source.Estado&#xA;WHEN NOT MATCHED BY TARGET &#xA;    THEN INSERT (nro_farmacia,Nombre,  Email, Telefono,Grupo,Estado)&#xA;         VALUES (source.nro_farmacia,source.Nombre,isnull(source.Email,'Sin EMAIL'), isnull(source.Telefono,00000000), source.Grupo,Estado)&#xA;WHEN NOT MATCHED BY SOURCE &#xA;    THEN DELETE; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{DC3D2E06-2B40-4907-B1B7-1878DD38E987}"
+      DTS:From="Package\Carga Temp_Farmacia"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Execute SQL Task" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B1E5B939-4A4C-4F95-89B7-692A3F70903E}"
+      DTS:From="Package\Borrar Temp_Dim_Farmacia"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Carga Temp_Farmacia" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{B3C4A0A7-2D89-4606-BF0A-BBC6DFB30E9F}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Default Value" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Borrar Temp_Dim_Farmacia"
+          TopLeft="235,50" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Carga Temp_Farmacia"
+          TopLeft="246,150" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="254,266" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="337,192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74"
+              Start="0,0"
+              End="0,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="339.5,92">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Default Value"
+          TopLeft="258,396" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="332.25,308">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,88"
+              Start="0,0"
+              End="0,80.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,80.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Temp_Farmacia">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Carga Temp_Farmacia\OLE DB Destination"
+          TopLeft="456,314" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Carga Temp_Farmacia\ADO NET Source"
+          TopLeft="390,167" />
+        <EdgeLayout
+          Id="Package\Carga Temp_Farmacia.Paths[ADO NET Source Output]"
+          TopLeft="469,209">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.5,105"
+              Start="0,0"
+              End="72.5,97.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,48.5"
+                    Point2="0,52.5"
+                    Point3="4,52.5" />
+                  <mssgle:LineSegment
+                    End="68.5,52.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="68.5,52.5"
+                    Point2="72.5,52.5"
+                    Point3="72.5,56.5" />
+                  <mssgle:LineSegment
+                    End="72.5,97.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Temp_Farmacia\ADO NET Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Temp_Farmacia\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

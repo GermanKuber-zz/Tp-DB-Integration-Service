@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "TP 2- DB", "Tp2 Db\TP 2- DB.dtproj", "{6D9B291E-E1DB-4BDE-8A4B-C6C1A7BFE28D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D9B291E-E1DB-4BDE-8A4B-C6C1A7BFE28D}.Development|Default.ActiveCfg = Development
+		{6D9B291E-E1DB-4BDE-8A4B-C6C1A7BFE28D}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
